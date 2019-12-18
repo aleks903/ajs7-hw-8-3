@@ -25,4 +25,19 @@ export default class Settings {
     }
     return this.default;
   }
+
+  set settings(objSettings) {
+    for (const key in objSettings) {
+      if ({}.hasOwnProperty.call(objSettings, key)) {
+        try {
+          if (objSettings[key].length > 1 || !this.allSetings[key].includes(...objSettings[key])) {
+            throw new Error();
+          }
+          this.userSettings.set(key, ...objSettings[key]);
+        } catch (e) {
+          throw new Error('Incorect input settings');
+        }
+      }
+    }
+  }
 }
